@@ -1,0 +1,98 @@
+/* src/styles/responsive.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* classes custom avec @apply */
+@layer components {
+
+  /* Style spécifique pour le mobile (max 640px pour couvrir le 375px) */
+  @media (max-width: 640px) {
+    .menu-nav {
+      @apply flex-col items-center py-4;
+    }
+    
+    /* Le conteneur du bouton burger doit rester fixe pour ne pas bouger */
+    .relative.z-50.flex.items-center {
+      @apply items-start justify-end;
+    }
+  }
+
+  /* Main container */
+  .main-container {
+    @apply w-full max-w-lg md:max-w-4xl lg:max-w-5xl xl:max-w-6xl;
+  }
+
+  /* Global padding pour sections */
+  .section-padding {
+    @apply px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    @apply relative px-6 py-12 md:py-16 lg:py-24 grid md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start;
+  }
+
+  .hero-left {
+    @apply md:col-span-5 lg:col-span-4 order-2 md:order-1 space-y-6 md:space-y-8 z-20; /* z-index élevé pour passer au-dessus de l'image */
+    
+  }
+
+  .hero-right {
+    @apply md:col-span-12 lg:col-span-3 order-3 md:order-3 text-center md:text-right space-y-8 md:space-y-12 mt-8 md:mt-0 z-20;
+    
+  }
+
+  .hero-title {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-center md:text-left drop-shadow-md; /* Ombre légère pour meilleure visibilité sur image */
+  }
+
+ .hero-image-container {
+  @apply md:col-span-7 lg:col-span-5 order-1 md:order-2 flex justify-center md:justify-end relative -mt-40 md:-mt-32 lg:-mt-48 xl:-mt-56 z-10;
+  /* augmente les marges négatives pour faire remonter l'image */
+  }
+
+  .hero-image {
+    @apply w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] rounded-full overflow-hidden shadow-2xl border-8 border-white dark:border-neutral-900;
+  }
+
+  .hero-button {
+    @apply mt-6 relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-black text-white font-semibold text-lg min-w-[200px] justify-center overflow-hidden shadow-xl cursor-pointer;
+  }
+
+  .hero-button-text {
+    @apply relative z-10 whitespace-nowrap;
+  }
+
+  /* Services Section */
+  .services-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center md:text-left;
+  }
+
+  /* Portfolio Section */
+  .portfolio-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12;
+  }
+
+  .portfolio-card {
+    @apply bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300;
+  }
+
+  /* Contact Form */
+  .contact-form {
+    @apply mt-12 max-w-2xl mx-auto space-y-6;
+  }
+
+  .contact-input {
+    @apply w-full p-4 rounded-lg border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-black;
+  }
+
+  /* Footer & Menu */
+  .menu-nav {
+    @apply flex flex-row gap-6 sm:gap-8;
+  }
+
+  .footer-links {
+    @apply flex flex-wrap justify-center gap-6 sm:gap-8 text-lg font-medium;
+  }
+}
