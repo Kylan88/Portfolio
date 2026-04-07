@@ -7,7 +7,6 @@ import ContactModal from "./components/ContactModal";
 import Loader from "./components/Loader";
 import contact from "./config/contact"; // ← Source unique des liens
 import ScrollProgressBar from "./components/ScrollProgressBar";
-import { label } from "framer-motion/client";
 
 /*  ANIMATIONS  */
 const menuVariants = {
@@ -233,15 +232,15 @@ const App = () => {
 
                 <motion.div className="hero-right" variants={stagger}>
                   {[
-                    ["2+", "Année d'apprentissage et de pratique"],
-                    ["5+", "Projets académiques et personnels"],
-                    ["80%", "Satisfaction sur les projets livrés"],
-                  ].map(([value, label]) => (
-                    <motion.div key={value} variants={fadeUp}>
-                      <h3 className="text-4xl font-bold">{value}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{label}</p>
-                    </motion.div>
-                  ))}
+  ["1+", "Année d'apprentissage et de pratique"],
+  ["5+", "Projets académiques et personnels"],
+  ["80%", "Satisfaction sur les projets livrés"],
+].map(([value, label]) => (
+  <motion.div key={value} variants={fadeUp}>
+    <h3 className="text-4xl font-bold">{value}</h3>
+    <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">{label}</p>
+  </motion.div>
+))}
                   <motion.div variants={fadeUp} className="mt-12">
                     <h4 className="text-xl font-bold">Front-end</h4>
                     <p className="text-gray-600 dark:text-gray-400 mt-4">
