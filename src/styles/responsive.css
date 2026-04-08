@@ -3,96 +3,131 @@
 @tailwind components;
 @tailwind utilities;
 
-/* classes custom avec @apply */
 @layer components {
 
-  /* Style spécifique pour le mobile (max 640px pour couvrir le 375px) */
+  /* ─── Mobile ─── */
   @media (max-width: 640px) {
-    .menu-nav {
-      @apply flex-col items-center py-4;
-    }
-    
-    /* Le conteneur du bouton burger doit rester fixe pour ne pas bouger */
-    .relative.z-50.flex.items-center {
-      @apply items-start justify-end;
-    }
+    .menu-nav { @apply flex-col items-center py-4; }
   }
 
-  /* Main container */
+  /* ─── Main container : pleine largeur, plus de max-w limité ─── */
   .main-container {
-    @apply w-full max-w-lg md:max-w-4xl lg:max-w-5xl xl:max-w-6xl;
+    @apply w-full;
   }
 
-  /* Global padding pour sections */
+  /* ─── Global padding sections ─── */
   .section-padding {
-    @apply px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24;
+    @apply px-6 sm:px-10 md:px-16 lg:px-24 xl:px-32 2xl:px-48;
   }
 
-  /* Hero Section */
+  /* ─── HERO : plein écran, photo en fond à droite ─── */
   .hero-section {
-    @apply relative px-6 py-12 md:py-16 lg:py-24 grid md:grid-cols-12 gap-8 md:gap-12 lg:gap-16 items-start;
+    @apply relative overflow-hidden
+           flex flex-col md:flex-row md:items-center
+           min-h-[520px] md:min-h-screen
+           px-6 pt-4 pb-16
+           md:px-16 lg:px-24 xl:px-32 2xl:px-48;
   }
 
+  /* Texte à gauche, z-index élevé pour passer sur la photo */
   .hero-left {
-    @apply md:col-span-5 lg:col-span-4 order-2 md:order-1 space-y-6 md:space-y-8 z-20; /* z-index élevé pour passer au-dessus de l'image */
-    
+    @apply relative z-20
+           w-full md:w-1/2 lg:w-5/12
+           flex flex-col items-start
+           space-y-6 md:space-y-8
+           pt-6 md:pt-0;
   }
 
+  /* Stats : bas à droite en desktop, bas en mobile */
   .hero-right {
-    @apply md:col-span-12 lg:col-span-3 order-3 md:order-3 text-center md:text-right space-y-8 md:space-y-12 mt-8 md:mt-0 z-20;
-    
+    @apply relative z-20
+           w-full
+           flex flex-row flex-wrap justify-start
+           gap-8 md:gap-12
+           mt-10
+           md:absolute md:bottom-12
+           md:right-16 lg:right-24 xl:right-32 2xl:right-48
+           md:w-auto md:mt-0
+           md:justify-end md:text-right;
+  }
+
+  /* ─── Photo : fond couvrant la moitié droite en desktop ─── */
+  .hero-image-container {
+    @apply flex justify-center
+           order-first md:order-none
+           md:absolute md:inset-y-0 md:right-0
+           md:w-1/2 lg:w-[55%]
+           z-10;
+  }
+
+  /* Fondu gauche → transparent pour fondre avec le fond blanc */
+  .hero-image-container::before {
+    content: '';
+    @apply hidden md:block absolute inset-y-0 left-0 w-2/5 z-10 pointer-events-none;
+    background: linear-gradient(to right, white 0%, white 15%, rgba(255,255,255,0.9) 45%, transparent 100%);
+  }
+  .dark .hero-image-container::before {
+    background: linear-gradient(to right, rgb(23 23 23) 0%, rgb(23 23 23) 15%, rgba(23,23,23,0.9) 45%, transparent 100%);
+  }
+
+  /* Image : cercle sur mobile, rectangle couvrant en desktop */
+  .hero-image {
+    @apply w-56 h-56 sm:w-72 sm:h-72 rounded-full overflow-hidden
+           border-4 border-white/60 dark:border-neutral-900/60
+           shadow-2xl mb-6
+           md:w-full md:h-full md:rounded-none md:border-0 md:shadow-none md:mb-0;
   }
 
   .hero-title {
-    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-center md:text-left drop-shadow-md; /* Ombre légère pour meilleure visibilité sur image */
-  }
-
- .hero-image-container {
-  @apply md:col-span-7 lg:col-span-5 order-1 md:order-2 flex justify-center md:justify-end relative -mt-40 md:-mt-32 lg:-mt-48 xl:-mt-56 z-10;
-  /* augmente les marges négatives pour faire remonter l'image */
-  }
-
-  .hero-image {
-    @apply w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] rounded-full overflow-hidden shadow-2xl border-8 border-white dark:border-neutral-900;
+    @apply text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl
+           font-bold leading-tight text-left;
   }
 
   .hero-button {
-    @apply mt-6 relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-black text-white font-semibold text-lg min-w-[200px] justify-center overflow-hidden shadow-xl cursor-pointer;
+    @apply relative inline-flex items-center gap-3
+           px-8 py-4 md:px-10 md:py-5
+           rounded-full bg-black text-white
+           font-semibold text-base md:text-lg
+           min-w-[160px] justify-center
+           overflow-hidden shadow-xl cursor-pointer;
   }
 
   .hero-button-text {
     @apply relative z-10 whitespace-nowrap;
   }
 
-  /* Services Section */
+  /* ─── Services ─── */
   .services-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 text-center md:text-left;
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16 text-left;
   }
 
-  /* Portfolio Section */
+  /* ─── Portfolio ─── */
   .portfolio-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12;
+    @apply grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10;
   }
 
   .portfolio-card {
-    @apply bg-white dark:bg-neutral-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300;
+    @apply bg-white dark:bg-neutral-800 rounded-2xl shadow-lg overflow-hidden
+           hover:shadow-2xl transition-shadow duration-300;
   }
 
-  /* Contact Form */
+  /* ─── Contact ─── */
   .contact-form {
-    @apply mt-12 max-w-2xl mx-auto space-y-6;
+    @apply mt-10 max-w-2xl mx-auto space-y-5;
   }
 
   .contact-input {
-    @apply w-full p-4 rounded-lg border border-gray-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-gray-800 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-black;
+    @apply w-full p-4 rounded-xl border border-gray-200 dark:border-neutral-700
+           bg-white dark:bg-neutral-800
+           text-gray-800 dark:text-gray-100
+           focus:outline-none focus:ring-2 focus:ring-indigo-400
+           transition-all;
   }
 
-  /* Footer & Menu */
-  .menu-nav {
-    @apply flex flex-row gap-6 sm:gap-8;
-  }
+  /* ─── Footer ─── */
+  .menu-nav { @apply flex flex-row gap-6 sm:gap-8; }
 
   .footer-links {
-    @apply flex flex-wrap justify-center gap-6 sm:gap-8 text-lg font-medium;
+    @apply flex flex-wrap justify-center gap-6 sm:gap-8 font-medium;
   }
 }
